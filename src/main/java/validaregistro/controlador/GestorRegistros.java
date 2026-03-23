@@ -3,6 +3,7 @@ package validaregistro.controlador;
 import validaregistro.modelo.Solicitud;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class GestorRegistros {
@@ -10,6 +11,7 @@ public class GestorRegistros {
     public HashMap<String, Solicitud> leerSolicitudes(File archivo) throws FileNotFoundException, IOException {
         HashMap<String, Solicitud> solicitudes = new HashMap<>();
         BufferedReader br = null;
+
         String linea;
         String[] partes;
 
@@ -48,7 +50,7 @@ public class GestorRegistros {
         if (solicitudes != null) {
             for (Solicitud solicitud : solicitudes.values()) {
                 if (solicitud.esValida()) {
-                        solicitudesValidas.put(solicitud.getLogin(), solicitud);
+                    solicitudesValidas.put(solicitud.getLogin(), solicitud);
                 }
             }
         }
@@ -77,4 +79,32 @@ public class GestorRegistros {
             System.out.println("El archivo donde se pretende escribir no existe.");
         }
     }
+
+    public void almacenarSerializado(File archivo, HashMap<String, Solicitud> solicitudesValidas) throws FileNotFoundException, IOException {
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(archivo));
+            oos.writeObject(solicitudesValidas);
+        } catch (FileNotFoundException fnfe) {
+            System.out.println("Archivo no encontrado.");
+        } catch (IOException ioe) {
+            System.out.println("Error en el archivo.");
+        } finally {
+            if (oos != null) {
+                oos.close();
+            }
+        }
+    }
+
+    public void deSerializado(File archivo, HashMap<String, Solicitud> solicitudesValidas) throws FileNotFoundException, IOException {
+        ObjectInputStream ois = null;
+        ArrayList<Solicitud> solicitudArrayList = null;
+
+        try {
+            ois = new ObjectInputStream(new FileInputStream(archivo));
+            solicitudArrayList = (ArrayList<Solicitud>) ois.readObject(solicitudesValidas);
+        }
+
+    }
+
 }

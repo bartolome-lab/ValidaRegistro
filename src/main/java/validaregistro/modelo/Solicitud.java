@@ -1,11 +1,17 @@
 package validaregistro.modelo;
 
-public class Solicitud {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Solicitud implements Serializable {
     private String login;
     private String clave;
     private String email;
     private String nombre;
     private String apellidos;
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public Solicitud(String login, String clave, String email, String nombre, String apellidos) {
         this.login = login;
