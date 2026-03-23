@@ -39,6 +39,9 @@ public class Solicitud {
         return "Login: " + this.login + " clave: " + this.clave + " email: " + this.email
                 + " nombre: " + this.nombre + " apellidos: " + this.apellidos;
     }
+    public String toFormat() {
+        return this.login + ":" + this.clave + ":" + this.email + ":" + this.nombre + ":" + this.apellidos;
+    }
 
     @Override
     public boolean equals(Object obj) {

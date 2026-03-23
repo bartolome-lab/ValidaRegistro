@@ -13,15 +13,20 @@ public class Programa {
         GestorRegistros gestorRegistros = new GestorRegistros();
         HashMap<String, Solicitud> todasLasSolicitudes;
         HashMap<String, Solicitud> solicitudesValidas;
-        String nombreArchivo;
-        File archivo;
+        String nombreArchivo1;
+        String nombreArchivo2;
+        File archivo1;
+        File archivo2;
 
-        nombreArchivo = vista.pedirNombreArchivo();
-        archivo = new File(nombreArchivo);
-        todasLasSolicitudes = gestorRegistros.leerSolicitudes(archivo);
+        nombreArchivo1 = vista.pedirNombreArchivo1();
+        archivo1 = new File(nombreArchivo1);
+        nombreArchivo2 = vista.pedirNombreArchivo2();
+        archivo2 = new File(nombreArchivo2);
+        todasLasSolicitudes = gestorRegistros.leerSolicitudes(archivo1);
         vista.mostrarSolicitudes(todasLasSolicitudes);
 
         solicitudesValidas = gestorRegistros.filtrarValidas(todasLasSolicitudes);
         vista.mostrarSolicitudes(solicitudesValidas);
+        gestorRegistros.almacenarArchivo(archivo2, solicitudesValidas);
     }
 }

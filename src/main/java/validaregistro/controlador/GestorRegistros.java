@@ -19,8 +19,10 @@ public class GestorRegistros {
                     br = new BufferedReader(new FileReader(archivo));
                     while ((linea = br.readLine()) != null) {
                         partes = linea.split(":");
-                        Solicitud solicitud = new Solicitud(partes[0], partes[1], partes[2], partes[3], partes[4]);
-                        solicitudes.put(solicitud.getLogin(), solicitud);
+                        if (partes.length == 5) {
+                            Solicitud solicitud = new Solicitud(partes[0], partes[1], partes[2], partes[3], partes[4]);
+                            solicitudes.put(solicitud.getLogin(), solicitud);
+                        }
                     }
                 } catch (FileNotFoundException fnfe) {
                     System.out.println("Archivo no encontrado.");
@@ -35,7 +37,7 @@ public class GestorRegistros {
                 System.out.println("No puede leerse el archivo.");
             }
         } else {
-            System.out.println("No existe el archivo.");
+            System.out.println("No existe el archivo a leer.");
         }
         return solicitudes;
     }
@@ -49,7 +51,30 @@ public class GestorRegistros {
                     solicitudesValidas.put(solicitud.getLogin(), solicitud);
                 }
             }
-        } return solicitudesValidas;
+        }
+        return solicitudesValidas;
     }
 
+    public void almacenarArchivo(File archivo, HashMap<String, Solicitud> solicitudesValidas) throws IOException {
+        PrintWriter pw = null;
+
+        if (archivo.exists() && archivo.canWrite()) {
+            try {
+                pw = new PrintWriter(new FileWriter(archivo, true));
+                if (solicitudesValidas != null) {
+                    for (Solicitud solicitud : solicitudesValidas.values()) {
+                        pw.println(solicitud.toFormat());
+                    }
+                }
+            } catch (IOException ioe) {
+                System.out.println("Error en el archivo.");
+            } finally {
+                if (pw != null) {
+                    pw.close();
+                }
+            }
+        } else {
+            System.out.println("El archivo donde se pretende escribir no existe.");
+        }
+    }
 }
