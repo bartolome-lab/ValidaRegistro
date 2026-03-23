@@ -21,7 +21,7 @@ public class GestorRegistros {
                         partes = linea.split(":");
                         if (partes.length == 5) {
                             Solicitud solicitud = new Solicitud(partes[0], partes[1], partes[2], partes[3], partes[4]);
-                            solicitudes.put(solicitud.getLogin(), solicitud);
+                            solicitudes.putIfAbsent(solicitud.getLogin(), solicitud);
                         }
                     }
                 } catch (FileNotFoundException fnfe) {
@@ -48,7 +48,7 @@ public class GestorRegistros {
         if (solicitudes != null) {
             for (Solicitud solicitud : solicitudes.values()) {
                 if (solicitud.esValida()) {
-                    solicitudesValidas.put(solicitud.getLogin(), solicitud);
+                        solicitudesValidas.put(solicitud.getLogin(), solicitud);
                 }
             }
         }
