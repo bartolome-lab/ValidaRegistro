@@ -15,26 +15,6 @@ public class Solicitud {
         this.apellidos = apellidos;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setClave(String clave) {
-        this.clave = clave;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -77,16 +57,23 @@ public class Solicitud {
         return login.hashCode();
     }
 
-    public boolean esValido() {
-        if (login == null || clave == null || email == null || nombre == null || apellidos == null) {
-            return false;
-        }
-        return login.length() >= 5 &&
+    public boolean esValida() {
+        if      (login != null &&
+                clave != null &&
+                email != null &&
+                nombre != null &&
+                apellidos != null &&
+                login.length() >= 5 &&
                 clave.length() >= 5 &&
                 email.length() >= 5 &&
                 email.contains("@") &&
                 nombre.length() >= 5 &&
-                apellidos.length() >= 5;
+                apellidos.length() >= 5) {
+            return true;
+        } else  {
+            return false;
+        }
+
     }
 
 }

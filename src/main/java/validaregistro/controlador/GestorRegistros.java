@@ -45,7 +45,7 @@ public class GestorRegistros {
 
         if (solicitudes != null) {
             for (Solicitud solicitud : solicitudes.values()) {
-                if (solicitud.esValido()) {
+                if (solicitud.esValida()) {
                     solicitudesValidas.put(solicitud.getLogin(), solicitud);
                 }
             }
