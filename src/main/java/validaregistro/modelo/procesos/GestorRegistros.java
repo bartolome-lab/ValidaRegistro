@@ -8,14 +8,6 @@ import java.util.HashMap;
 
 public class GestorRegistros {
 
-    private HashMap<String, Solicitud> solicitudesValidas;
-    private ArrayList<String> solicitudesNoValidas;
-
-    public GestorRegistros() {
-        solicitudesValidas = new HashMap<>();
-        solicitudesNoValidas = new ArrayList<>();
-    }
-
     public HashMap<String, Solicitud> leerSolicitudes(File archivo) throws FileNotFoundException, IOException {
         HashMap<String, Solicitud> solicitudes = new HashMap<>();
         BufferedReader br = null;
@@ -32,8 +24,6 @@ public class GestorRegistros {
                         if (partes.length == 5) {
                             Solicitud solicitud = new Solicitud(partes[0], partes[1], partes[2], partes[3], partes[4]);
                             solicitudes.putIfAbsent(solicitud.getLogin(), solicitud);
-                        } else {
-                            solicitudesNoValidas.add(linea);
                         }
                     }
                 } catch (FileNotFoundException fnfe) {
@@ -59,10 +49,8 @@ public class GestorRegistros {
 
         if (solicitudes != null) {
             for (Solicitud solicitud : solicitudes.values()) {
-                if (solicitud.esValida() && !solicitudesValidas.containsKey(solicitud)) {
+                if (solicitud.esValida()) {
                     solicitudesValidas.put(solicitud.getLogin(), solicitud);
-                } else {
-                    this.solicitudesNoValidas.add(solicitud.toFormat());
                 }
             }
         }
