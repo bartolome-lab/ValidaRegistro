@@ -1,6 +1,6 @@
 package validaregistro.vista;
 
-import validaregistro.modelo.Solicitud;
+import validaregistro.modelo.beans.Solicitud;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class Vista {
     Scanner teclado = new Scanner(System.in);
 
-    public String pedirNombreArchivo1(){
-        System.out.println("Ingrese el nombre del archivo a leer: ");
+    public String pedirNombreArchivo(String mensaje){
+        System.out.println(mensaje);
         return teclado.nextLine();
     }
 
@@ -17,10 +17,5 @@ public class Vista {
         for (Solicitud solicitud : solicitudes.values()) {
             System.out.println(solicitud);
         }
-    }
-
-    public String pedirNombreArchivo2() {
-        System.out.println("Ingrese el nombre del archivo a escribir: ");
-        return teclado.nextLine();
     }
 }

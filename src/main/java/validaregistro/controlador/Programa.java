@@ -1,6 +1,7 @@
 package validaregistro.controlador;
 
-import validaregistro.modelo.Solicitud;
+import validaregistro.modelo.beans.Solicitud;
+import validaregistro.modelo.procesos.GestorRegistros;
 import validaregistro.vista.Vista;
 
 import java.io.File;
@@ -18,9 +19,9 @@ public class Programa {
         File archivo1;
         File archivo2;
 
-        nombreArchivo1 = vista.pedirNombreArchivo1();
+        nombreArchivo1 = vista.pedirNombreArchivo("Ingrese el nombre del archivo a leer: ");
         archivo1 = new File(nombreArchivo1);
-        nombreArchivo2 = vista.pedirNombreArchivo2();
+        nombreArchivo2 = vista.pedirNombreArchivo("Ingrese el nombre del archivo a escribir: ");
         archivo2 = new File(nombreArchivo2);
         todasLasSolicitudes = gestorRegistros.leerSolicitudes(archivo1);
         vista.mostrarSolicitudes(todasLasSolicitudes);

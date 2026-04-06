@@ -1,4 +1,4 @@
-package validaregistro.modelo;
+package validaregistro.modelo.beans;
 
 import java.io.Serial;
 import java.io.Serializable;
